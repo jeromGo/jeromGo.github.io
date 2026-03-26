@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Love Story 💕</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        .header {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255,255,255,0.9);
+            margin-bottom: 20px;
+        }
+        .photo-frame {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 8px solid #e91e63;
+            margin: 0 auto 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(233,30,99,0.4);
+            animation: pulse 3s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.95);
+            border-radius: 25px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        h1 { 
+            font-size: 2.5em; 
+            color: #e91e63; 
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        .template-selector {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        .template-btn {
+            padding: 12px 20px;
+            border: 2px solid #e91e63;
+            background: white;
+            color: #e91e63;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        .template-btn.active,
+        .template-btn:hover {
+            background: linear-gradient(45deg, #e91e63, #ff6b9d);
+            color: white;
+            transform: translateY(-2px);
+        }
+        .letter {
+            background: linear-gradient(145deg, #fff, #f8f8f8);
+            border: 3px dashed #e91e63;
+            border-radius: 20px;
+            padding: 35px;
+            margin: 20px 0;
+            font-size: 1.25em;
+            line-height: 1.8;
+            color: #333;
+            min-height: 300px;
+            box-shadow: inset 0 0 25px rgba(233,30,99,0.1);
+        }
+        .heart-big { font-size: 4em; color: #e91e63; animation: heartbeat 1.5s infinite; margin: 20px 0; }
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        .btn { 
+            background: linear-gradient(45deg, #e91e63, #ff6b9d);
+            color: white; border: none; padding: 15px 30px;
+            font-size: 1.1em; border-radius: 50px; cursor: pointer;
+            margin: 10px; box-shadow: 0 10px 25px rgba(233,30,99,0.3);
+            transition: all 0.3s;
+        }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(233,30,99,0.4); }
+        .particles { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; }
+        .particle {
+            position: absolute; width: 6px; height: 6px; background: #ff69b4;
+            border-radius: 50%; animation: float 8s infinite linear;
+        }
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+        @media (max-width: 768px) {
+            .container { padding: 20px; margin: 10px; }
+            h1 { font-size: 2em; }
+            .photo-frame { width: 150px; height: 150px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    
+    <div class="header">
+        <div class="photo-frame">
+            <!-- ADD YOUR PHOTO HERE -->
+            <img src="c:\Users\Admin\Downloads\fbb08b01-8fc4-4d68-97fb-888e9ac9e33e (1).jpg" alt="Us 💕" id="couplePhoto">
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>💕 Love Letter for My Girlfriend 💕</h1>
+        
+        <div class="template-selector">
+            <button class="template-btn active" data-template="1">1st Date ✨</button>
+            <button class="template-btn" data-template="2">Anniversary 💍</button>
+            <button class="template-btn" data-template="3">Everyday Love ❤️</button>
+            <button class="template-btn" data-template="4">Long Distance 🌍</button>
+            <button class="template-btn" data-template="5">Forever Promise 💖</button>
+        </div>
+
+        <div class="heart-big">💖</div>
+        
+        <div class="letter" id="loveLetter">
+            <!-- Template 1 loads here -->
+        </div>
+        
+        <div style="text-align: center; margin-top: 30px;">
+            <button class="btn" onclick="readAloud()">🔊 Read Aloud</button>
+            <button class="btn" onclick="createHearts()">💝 Hearts Rain</button>
+            <button class="btn" onclick="printLetter()">🖨️ Print</button>
+            <input type="file" id="photoUpload" accept="image/*" style="display: none;">
+            <button class="btn" onclick="document.getElementById('photoUpload').click()">📸 Change Photo</button>
+        </div>
+    </div>
+
+    <script>
+        // 5 Romantic Templates
+        const templates = {
+            1: `My Dearest [Her Name],
+
+I still remember our first date like it was yesterday. The way you smiled when I nervously held your hand, how your eyes sparkled under the streetlights. That night, I knew you were the one.
+
+Every moment since has been magic. Thank you for being my everything.
+
+Love always,
+[Your Name] 💕`,
+            
+            2: `Happy Anniversary My Love!
+
+[Number] months/years of the best moments of my life. From our first kiss to building our dreams together - you've made me the happiest man alive.
+
+Here's to forever with you, my soulmate.
+
+Forever yours,
+[Your Name] 💍`,
+            
+            3: `Good Morning/Afternoon My Beautiful Girl,
+
+Just wanted to remind you how much I love you. Your laugh, your hugs, the way you make coffee - everything about you is perfect.
+
+Can't wait to see you and hold you tight.
+
+Your boyfriend forever,
+[Your Name] ❤️`,
+            
+            4: `My Love Across the Miles,
+
+Distance means nothing when I have your heart. Every night I dream of the day we'll be together again, waking up in your arms.
+
+You're worth every second of waiting.
+
+Counting down the days,
+[Your Name] 🌍`,
+            
+            5: `My Forever Promise,
+
+I promise to love you through every sunrise and sunset. Through laughter and tears, in sickness and health. You are my heart, my home, my everything.
+
+Will you marry me someday? 💍
+
+Yours eternally,
+[Your Name] 💖`
+        };
+
+        // Load first template
+        document.getElementById('loveLetter').innerHTML = templates[1];
+
+        // Template buttons
+        document.querySelectorAll('.template-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelector('.template-btn.active').classList.remove('active');
+                btn.classList.add('active');
+                const templateId = btn.dataset.template;
+                document.getElementById('loveLetter').innerHTML = templates[templateId];
+            });
+        });
+
+        // Photo upload
+        document.getElementById('photoUpload').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    document.getElementById('couplePhoto').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Particles
+        function createParticles() {
+            const particles = document.getElementById('particles');
+            for (let i = 0; i < 60; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 8 + 's';
+                particle.style.animationDuration = (Math.random() * 4 + 5) + 's';
+                particles.appendChild(particle);
+            }
+        }
+        createParticles();
+
+        // Other functions (same as before)
+        function readAloud() {
+            const letter = document.getElementById('loveLetter').textContent;
+            const utterance = new SpeechSynthesisUtterance(letter);
+            utterance.rate = 0.8; utterance.pitch = 1.1;
+            speechSynthesis.speak(utterance);
+        }
+
+        function createHearts() {
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.innerHTML = ['💖','💕','💗','💝','❤️'][Math.floor(Math.random()*5)];
+                    heart.style.cssText = `
+                        position: fixed; left: ${Math.random()*100}vw; top: 100vh;
+                        font-size: 2em; pointer-events: none; z-index: 1000;
+                        animation: float 5s linear forwards;
+                    `;
+                    document.body.appendChild(heart);
+                    setTimeout(() => heart.remove(), 5000);
+                }, i * 80);
+            }
+        }
+
+        function printLetter() {
+            window.print();
+        }
+
+        const printStyle = document.createElement('style');
+        printStyle.innerHTML = `@media print {
+            body { background: white; } .container, .header { box-shadow: none; background: white; }
+            .template-selector, .btn, .particles { display: none; } .photo-frame { border: 3px solid #000; }
+        }`;
+        document.head.appendChild(printStyle);
+    </script>
+</body>
+</html>
